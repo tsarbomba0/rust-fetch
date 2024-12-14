@@ -13,7 +13,7 @@ fn main(){
     let cpu = CPU::get_cpu().unwrap();
     println!("a: {}", cpu.arch);
 
-    let gpu = GPU::get_name();
-
-
+    let gpu = GPU::get_name().unwrap();
+    println!("vendor: {}", gpu.vendor);
+    println!("model: {}", gpu.model);
 }
