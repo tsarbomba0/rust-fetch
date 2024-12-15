@@ -5,13 +5,14 @@ use crate::memory::memory::Memory;
 use std::thread;
 use std::sync::{Arc, Mutex};
 
+mod draw_line;
 mod memory;
 mod drive;
 mod cpu;
 mod gpu;
 mod count_lines;
 
-fn construct(){       
+fn construct()->String{       
     let message = Arc::new(Mutex::new(String::new())); 
     let mut threads = vec![];
     
@@ -80,10 +81,14 @@ fn construct(){
         let _ = t.join();
     };
     
-    let message_deref = Arc::clone(&message);
 
-    println!("{}", *message_deref.lock().unwrap());
+    let a = message.lock().unwrap().clone();
+    a.to_string()
 }
-fn main(){
-    construct();
+fn main(){ 
+    let fetch = construct();
+    let line_count = fetch.lines().collect::<Vec<&str>>().len();
+    for line in fetch.split("\n") {
+        println!("{0}  {1}", draw_line::drawline(line_count as u32), line)
+    }
 }
