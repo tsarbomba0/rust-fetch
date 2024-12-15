@@ -38,9 +38,6 @@ impl Drive {
         }
     }
     
-    pub fn pretty_space(&self)->String{
-        format!("{0}: {1}/{2}", self.mount_point, self.space_free, self.space_total)
-    }
     
     pub fn load_disks()->Vec<Drive>{
         let (avail, mounts) = mounts();

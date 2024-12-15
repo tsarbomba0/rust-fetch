@@ -32,16 +32,18 @@ impl CPU {
         
 
         // CPU brand
-        for line in proc_cpuinfo.split_whitespace(){
+        for line in proc_cpuinfo.split("\n"){
             if line.starts_with("model name") {
-                cpu_brand = line.replace("model name", "").to_string()
+                if let Some(name) = line.split(":").nth(1) {
+                    cpu_brand = name.trim().to_string()
+                }; 
+                break;
             }
         }
         
         // Maximum frequency
         let max_freq: u32 = match read_file("/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq"){
             Ok(res) => {
-                println!("{}", res);
                 match res.trim().parse::<u32>() {
                     Ok(n) => n/1000,
                     Err(error) => {

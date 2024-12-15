@@ -98,7 +98,6 @@ impl GPU {
                                                                 
         // model name for later
         let mut model_name = String::from("unknown");
-        println!("A: {}", model_string); 
         // Loop through lines of the file
         for line in lines {        
             let actual_line = line?.clone();

@@ -13,6 +13,7 @@ pub struct Memory {
     pub swap_partitions: Vec<String>,
     pub swap_total: u32,
     pub swap_free: u32,
+    pub swap_used: u32,
 }
 
 
@@ -118,6 +119,7 @@ impl Memory {
             swap_partitions: swap_vec,
             swap_total: swap_total,
             swap_free: swap_free,
+            swap_used: swap_total - swap_free,
         })
     }
 }

@@ -8,11 +8,8 @@ pub fn fs_info(path: &str)->Result<libc::statfs, i16>{
     let mut info = MaybeUninit::<libc::statfs>::uninit();
     let info_ptr = info.as_mut_ptr();
     // c_string holds the CString made from the path specified
-    let c_string: std::ffi::CString;
-    match path {
-        "/" => c_string = CString::new("/proc").unwrap(),
-        _ => c_string = CString::new(path).unwrap(),
-    } 
+    let c_string = CString::new(path).unwrap();
+     
     
     // Pointer to the CString for the file path
     let path_ptr: *const libc::c_char = c_string.as_ptr();
